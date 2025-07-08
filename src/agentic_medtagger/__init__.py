@@ -10,8 +10,8 @@ __version__ = "0.1.0"
 __author__ = "Sonish Sivarajkumar"
 __email__ = "sonishsivarajkumar@example.com"
 
-from .core.pipeline import Pipeline
+from .core.pipeline import MedTaggerPipeline, create_medtagger_pipeline
 from .core.document import Document
 from .core.annotation import Annotation
 
-__all__ = ["Pipeline", "Document", "Annotation"]
+__all__ = ["MedTaggerPipeline", "create_medtagger_pipeline", "Document", "Annotation"]

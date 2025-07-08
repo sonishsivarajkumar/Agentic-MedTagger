@@ -2,6 +2,6 @@
 
 from .annotation import Annotation
 from .document import Document
-from .pipeline import Pipeline
+from .pipeline import MedTaggerPipeline, create_medtagger_pipeline
 
-__all__ = ["Annotation", "Document", "Pipeline"]
+__all__ = ["Annotation", "Document", "MedTaggerPipeline", "create_medtagger_pipeline"]

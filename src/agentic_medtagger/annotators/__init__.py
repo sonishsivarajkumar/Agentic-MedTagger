@@ -1,15 +1,17 @@
 """Annotator modules for various NLP tasks."""
 
 from .dictionary import DictionaryMatcher
-from .ner import DefaultNERAnnotator
-from .sections import SectionDetector
-from .assertion import AssertionClassifier
-from .negation import NegationDetector
+from .medtagger_ie import MedTaggerIE
+from .medtagger_ml import MedTaggerML
+from .section_detector import SectionDetector
+from .assertion_negation import AssertionNegationDetector
+from .omop_umls_normalizer import OMOPUMLSNormalizer
 
 __all__ = [
     "DictionaryMatcher",
-    "DefaultNERAnnotator", 
+    "MedTaggerIE", 
+    "MedTaggerML",
     "SectionDetector",
-    "AssertionClassifier",
-    "NegationDetector"
+    "AssertionNegationDetector",
+    "OMOPUMLSNormalizer"
 ]

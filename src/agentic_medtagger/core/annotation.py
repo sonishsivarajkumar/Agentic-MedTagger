@@ -62,6 +62,21 @@ class Annotation:
         if not 0.0 <= self.confidence <= 1.0:
             raise ValueError("Confidence must be between 0.0 and 1.0")
     
+    @property
+    def text(self) -> str:
+        """Get the text content of the annotation."""
+        return self.span.text
+    
+    @property 
+    def start(self) -> int:
+        """Get the start position of the annotation."""
+        return self.span.start
+    
+    @property
+    def end(self) -> int:
+        """Get the end position of the annotation."""
+        return self.span.end
+    
     def to_dict(self) -> Dict[str, Any]:
         """Convert annotation to dictionary format."""
         return {
