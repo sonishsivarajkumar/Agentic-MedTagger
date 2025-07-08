@@ -1,0 +1,86 @@
+# Agentic MedTagger Configuration
+
+# Pipeline Configuration
+pipeline:
+  name: "default_clinical_pipeline"
+  version: "1.0.0"
+  max_concurrent_documents: 4
+  halt_on_error: false
+
+# Component Configuration
+components:
+  tokenizer:
+    enabled: true
+    spacy_model: "en_core_web_sm"
+  
+  dictionary_matcher:
+    enabled: true
+    dictionaries:
+      - type: "csv"
+        path: "data/dictionaries/medications.csv"
+        label: "MEDICATION"
+      - type: "csv"
+        path: "data/dictionaries/conditions.csv"
+        label: "CONDITION"
+      - type: "umls"
+        path: "data/umls/MRCONSO.RRF"
+        semantic_types: ["T047", "T048", "T049"]  # Disease or Syndrome
+  
+  section_detector:
+    enabled: true
+    rules_file: "config/section_rules.yaml"
+  
+  assertion_classifier:
+    enabled: true
+    model_path: "models/assertion_classifier.pkl"
+  
+  negation_detector:
+    enabled: true
+    rules_file: "config/negation_rules.yaml"
+
+# Agentic Layer Configuration
+agents:
+  umls_normalizer:
+    enabled: true
+    llm_provider: "openai"
+    model: "gpt-3.5-turbo"
+    temperature: 0.1
+    max_tokens: 200
+    confidence_threshold: 0.7
+  
+  concept_resolver:
+    enabled: true
+    umls_api_key: "${UMLS_API_KEY}"
+    cache_results: true
+
+# Database Configuration
+database:
+  url: "postgresql://user:password@localhost:5432/agentic_medtagger"
+  pool_size: 10
+  max_overflow: 20
+
+# Web Interface Configuration
+web:
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+  cors_origins: ["http://localhost:3000"]
+
+# Active Learning Configuration
+active_learning:
+  enabled: true
+  confidence_threshold: 0.8
+  batch_size: 10
+  sampling_strategy: "uncertainty"
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/agentic_medtagger.log"
+
+# Export Configuration
+export:
+  formats: ["json", "xmi"]
+  include_metadata: true
+  include_provenance: true

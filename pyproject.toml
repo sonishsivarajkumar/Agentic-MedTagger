@@ -1,0 +1,120 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentic-medtagger"
+version = "0.1.0"
+description = "A Python-native clinical NLP framework with agentic capabilities"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Sonish Sivarajkumar", email = "sonishsivarajkumar@example.com"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Healthcare Industry",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    "Topic :: Text Processing :: Linguistic"
+]
+requires-python = ">=3.9"
+dependencies = [
+    "spacy>=3.7.0",
+    "flashtext>=2.7",
+    "langchain>=0.1.0",
+    "langchain-community>=0.0.10",
+    "langchain-openai>=0.0.5",
+    "psycopg2-binary>=2.9.5",
+    "sqlalchemy>=2.0.0",
+    "alembic>=1.12.0",
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "python-multipart>=0.0.6",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0.0",
+    "pycontext>=3.0.0",
+    "python-docx>=0.8.11",
+    "PyPDF2>=3.0.0",
+    "openpyxl>=3.1.0",
+    "structlog>=23.0.0",
+    "prometheus-client>=0.17.0",
+    "cryptography>=41.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "httpx>=0.25.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "isort>=5.12.0",
+    "mypy>=1.5.0",
+    "pre-commit>=3.0.0"
+]
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.0.0"
+]
+gpu = [
+    "torch>=2.0.0",
+    "transformers>=4.30.0"
+]
+
+[project.entry-points."agentic_medtagger.annotators"]
+default_ner = "agentic_medtagger.annotators.ner:DefaultNERAnnotator"
+dictionary_matcher = "agentic_medtagger.annotators.dictionary:DictionaryMatcher"
+section_detector = "agentic_medtagger.annotators.sections:SectionDetector"
+assertion_classifier = "agentic_medtagger.annotators.assertion:AssertionClassifier"
+negation_detector = "agentic_medtagger.annotators.negation:NegationDetector"
+
+[project.entry-points."agentic_medtagger.agents"]
+umls_normalizer = "agentic_medtagger.agents.umls:UMLSNormalizer"
+concept_resolver = "agentic_medtagger.agents.resolver:ConceptResolver"
+
+[project.scripts]
+agentic-medtagger = "agentic_medtagger.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/sonishsivarajkumar/Agentic-MedTagger"
+Repository = "https://github.com/sonishsivarajkumar/Agentic-MedTagger"
+Issues = "https://github.com/sonishsivarajkumar/Agentic-MedTagger/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.black]
+line-length = 88
+target-version = ["py39", "py310", "py311"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--cov=agentic_medtagger --cov-report=html --cov-report=term-missing"
