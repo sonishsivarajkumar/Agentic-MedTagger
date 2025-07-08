@@ -2,6 +2,8 @@
 
 A production-ready Python-native clinical NLP framework inspired by Mayo Clinic's MedTagger, implementing all major features for clinical text processing.
 
+🌟 **[Live Demo Available](https://sonishsivarajkumar.github.io/Agentic-MedTagger/)** 🌟
+
 ## Overview
 
 Agentic MedTagger is a comprehensive clinical NLP framework that combines dictionary-based matching, pattern-based information extraction, machine learning-based NER, section detection, assertion/negation analysis, and OMOP/UMLS concept normalization. Built with modern Python practices, it provides high-performance processing of clinical documents with extensive configurability and extensibility.
